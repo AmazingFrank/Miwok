@@ -23,7 +23,7 @@ public class NumbersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numbers);
 
-        listView = (ListView) findViewById(R.id.list);
+        listView = (ListView) findViewById(R.id.numbers_list);
         ArrayList<Word> words = new ArrayList<Word>();
 
         words.add(new Word("one", "lutti"));
