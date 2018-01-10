@@ -17,6 +17,9 @@ public class Word {
     // Image associated with the word
     private int imageResourceID = NO_IMAGE_PROVIDED;
 
+    // Raw audio associated with the word
+    private int rawResourceID;
+
     /**
      *  Constant value that represents no image was provided for this word
      */
@@ -25,15 +28,17 @@ public class Word {
     /**
      * Constructs a new Word
      */
-    public Word( String dTranslation, String mTranslation){
+    public Word( String dTranslation, String mTranslation, int mRawResourceID){
         miwokTranslation = mTranslation;
         defaultTranslation = dTranslation;
+        rawResourceID = mRawResourceID;
     }
 
-    public Word( String dTranslation, String mTranslation, int mImageResourceID){
+    public Word( String dTranslation, String mTranslation, int mImageResourceID, int mRawResourceID){
         miwokTranslation = mTranslation;
         defaultTranslation = dTranslation;
         imageResourceID = mImageResourceID;
+        rawResourceID = mRawResourceID;
     }
 
     /**
@@ -59,9 +64,29 @@ public class Word {
     public int getImageResourceID(){ return imageResourceID; }
 
     /**
+     * Gets the image resource for the word
+     * @return the image resource for the word
+     */
+    public int getRawResourceID(){ return rawResourceID; }
+
+    /**
      * Returns whether or not there is an image for this word.
      */
     public boolean hasImage() {
         return imageResourceID != NO_IMAGE_PROVIDED;
+    }
+
+    /**
+     *
+     * Returns the string representation of the {@Link Word} object
+     */
+    @Override
+    public String toString() {
+        return "Word{" +
+                "miwokTranslation='" + miwokTranslation + '\'' +
+                ", defaultTranslation='" + defaultTranslation + '\'' +
+                ", imageResourceID=" + imageResourceID +
+                ", rawResourceID=" + rawResourceID +
+                '}';
     }
 }
