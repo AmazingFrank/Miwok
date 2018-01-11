@@ -47,8 +47,17 @@ public class PhrasesActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(NumbersActivity.this, "List item clicked", Toast.LENGTH_SHORT).show();
-                mp = MediaPlayer.create(PhrasesActivity.this, words.get(position).getRawResourceID());
+                // Get the {@link Word} object at the given position the user clicked on
+                Word word = words.get(position);
+
+                Log.v("PhrasesActivity", "Current word: " + word);
+
+                /* Create and setup the {@link MediaPlayer} for the audio resource
+                 * associated with the current word
+                 */
+                mp = MediaPlayer.create(PhrasesActivity.this, word.getRawResourceID());
+
+                // Start the audio file
                 mp.start();
             }
         });

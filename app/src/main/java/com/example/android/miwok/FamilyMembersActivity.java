@@ -44,11 +44,23 @@ public class FamilyMembersActivity extends AppCompatActivity {
         adapter = new WordAdapter(this, words, R.color.category_family);
         listView.setAdapter(adapter);
 
+        /* Set a click listener to play the audio
+         * when the list item is clicked on listView.setOnItemClickList
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(NumbersActivity.this, "List item clicked", Toast.LENGTH_SHORT).show();
-                mp = MediaPlayer.create(FamilyMembersActivity.this, words.get(position).getRawResourceID());
+                // Get the {@link Word} object at the given position the user clicked on
+                Word word = words.get(position);
+
+                Log.v("FamilyMembersActivity", "Current word: " + word);
+
+                /* Create and setup the {@link MediaPlayer} for the audio resource
+                 * associated with the current word
+                 */
+                mp = MediaPlayer.create(FamilyMembersActivity.this, word.getRawResourceID());
+
+                // Start the audio file
                 mp.start();
             }
         });
