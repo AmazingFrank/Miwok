@@ -23,6 +23,18 @@ public class NumbersActivity extends AppCompatActivity {
     private ListView listView;
     private WordAdapter adapter;
     private MediaPlayer mp;
+
+    /**
+     * This listener gets triggered when the {@Link MediaPlayer} has completed
+     * playing this audio file.
+     */
+    private MediaPlayer.OnCompletionListener completionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseMediaPlayer();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +68,12 @@ public class NumbersActivity extends AppCompatActivity {
 
                 Log.v("NumbersActivity", "Current word: " + word);
 
+                /*
+                 * Release the {@link MediaPlayer} object if it currently exists
+                 * because we are about to play a different sound file.
+                 */
+                releaseMediaPlayer();
+
                 /* Create and setup the {@link MediaPlayer} for the audio resource
                  * associated with the current word
                  */
@@ -63,7 +81,30 @@ public class NumbersActivity extends AppCompatActivity {
 
                 // Start the audio file
                 mp.start();
+                // Release resources when done
+                mp.setOnCompletionListener(completionListener);
             }
         });
+    }
+
+    /**
+     * Clean up the media player by releasing its resources.
+     */
+    private void releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mp != null) {
+            /**
+             * Regardless of the current state of the media player, release its resources
+             * because we no longer need it.
+             */
+            mp.release();
+
+            /*
+             * Set the media player back to null. For our code, we've decided that
+             * setting the media player to null is an easy way to tell that the media player
+             * is not configured to play an audio file at the moment.
+             */
+            mp = null;
+        }
     }
 }
